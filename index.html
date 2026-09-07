@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://cdn.jsdelivr.net/npm/aframe@1.4.1/dist/aframe-master.min.js"></script>
+  </head>
+  <body>
+    <a-scene>
+
+      <!-- PISO -->
+      <a-plane rotation="-90 0 0" width="20" height="20" color="#888888"></a-plane>
+
+      <!-- MODELO CAD -->
+      <a-assets>
+        <a-asset-item id="modeloIndustrial" src="modelo.glb">
+      </a-assets>
+
+      <a-entity gltf-model="#modeloIndustrial" position="0 0 -5" scale="1 1 1"></a-entity>
+
+      <!-- CIELO -->
+      <a-sky color="#D0E8F0"></a-sky>
+
+    </a-scene>
+  </body>
+</html>
