@@ -11,7 +11,7 @@
 
       <!-- MODELO CAD -->
       <a-assets>
-        <a-asset-item id="modeloIndustrial" src="modelo.glb">
+        <a-asset-item id="modeloIndustrial" src="models/modelo.glb"></a-asset-item>
       </a-assets>
 
       <a-entity gltf-model="#modeloIndustrial" position="0 0 -5" scale="1 1 1"></a-entity>
@@ -19,6 +19,11 @@
       <!-- CIELO -->
       <a-sky color="#D0E8F0"></a-sky>
 
+  a-entity light="type: ambient; intensity: 0.7"></a-entity>
+      <a-entity light="type: directional; intensity: 0.5" position="2 4 2"></a-entity>
+
+      <!-- Cámara con controles -->
+      <a-entity camera look-controls wasd-controls position="0 1.6 2"></a-entity>
     </a-scene>
   </body>
 </html>
