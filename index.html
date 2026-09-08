@@ -2,18 +2,38 @@
 <html>
   <head>
     <script src="https://cdn.jsdelivr.net/npm/aframe@1.4.1/dist/aframe-master.min.js"></script>
+    <script>
+      // Componente que oculta un elemento automáticamente al entrar en modo AR
+      // y lo vuelve a mostrar al salir (para VR/desktop sí se ve normal)
+      AFRAME.registerComponent('hide-in-ar', {
+        init: function () {
+          var el = this.el;
+          this.el.sceneEl.addEventListener('enter-vr', function () {
+            if (el.sceneEl.is('ar-mode')) {
+              el.setAttribute('visible', false);
+            }
+          });
+          this.el.sceneEl.addEventListener('exit-vr', function () {
+            el.setAttribute('visible', true);
+          });
+        }
+      });
+    </script>
   </head>
   <body>
-    <a-scene>
-      <!-- PISO -->
-      <a-plane rotation="-90 0 0" width="20" height="20" color="#888888"></a-plane>
-      <!-- MODELO CAD -->
+    <a-scene renderer="alpha: true" webxr="optionalFeatures: hit-test, dom-overlay;">
+
+      <!-- PISO: visible en desktop/VR, oculto en AR -->
+      <a-plane hide-in-ar rotation="-90 0 0" width="20" height="20" color="#888888"></a-plane>
+
+      <!-- CIELO: visible en desktop/VR, oculto en AR (deja ver la cámara real) -->
+      <a-sky hide-in-ar color="#D0E8F0"></a-sky>
+
+      <!-- MODELO CAD: siempre visible, incluso en AR -->
       <a-assets>
         <a-asset-item id="modeloIndustrial" src="models/modelo.glb"></a-asset-item>
       </a-assets>
       <a-entity gltf-model="#modeloIndustrial" position="0 0 -5" scale="1 1 1"></a-entity>
-      <!-- CIELO -->
-      <a-sky color="#D0E8F0"></a-sky>
 
       <!-- Luces -->
       <a-entity light="type: ambient; intensity: 0.7"></a-entity>
